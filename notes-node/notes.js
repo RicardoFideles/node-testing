@@ -42,7 +42,7 @@ var list  = () => {
 var read  = (title) => {
     console.log('read note with title : ', title);
     var notes = fetchNotes();
-    return notes.filter((note) => note.title === title);
+    return notes.filter((note) => note.title === title)[0];
 }
 
 var remove  = (title) => {
@@ -52,9 +52,18 @@ var remove  = (title) => {
     saveNotes(filteredNotes);
 }
 
+var logNote = (note) => {
+    //debugger; nodemon --inspect-brk app.js read --title="secret2" open in chrome debugger
+    //chrome://inspect/
+    console.log('--');
+    console.log(`Title: ${note.title}`);
+    console.log(`Body: ${note.body}`);
+}
+
 module.exports = {
     add,
     list,
     read,
-    remove
+    remove,
+    logNote
 }
