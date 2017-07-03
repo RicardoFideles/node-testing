@@ -14,4 +14,16 @@ const argv = yargs
     .alias('help', 'h')
     .argv;
 
-geocode.geocodeAddress(argv.address);
+var apiKey = process.env.DARKSKY_SECRET;
+//https://api.darksky.net/forecast/[key]/[latitude],[longitude]
+console.log(apiKey);
+//console.log(process.env);
+
+
+geocode.geocodeAddress(argv.address, (errorMessage, results) => {
+    if (errorMessage) {
+        console.log(errorMessage);
+    } else {
+        console.log(JSON.stringify(results, undefined, 2));
+    }
+});

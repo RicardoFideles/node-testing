@@ -1,6 +1,6 @@
 const request = require('request');
 
-var geocodeAddress = (address) => {
+var geocodeAddress = (address, callback) => {
 
     var encondedAddress = encodeURIComponent(address);
 
@@ -12,19 +12,20 @@ var geocodeAddress = (address) => {
     }, (error, response, body) => {
 
         if (error) {
-            console.log('Something went wrong, try again latter');
+            callback('Something went wrong, try again latter');
         } else {
             if (response.statusCode !== 200) {
-                console.log('Something went wrong, try again latter');
+                callback('Something went wrong, try again latter');
                 return false;
             }
-            console.log(JSON.stringify(body, undefined, 2));
             if (body.status === 'ZERO_RESULTS') {
-                console.log('Address not found!');
+                callback('Address not found!');
             } else {
-                console.log(`Address: ${body.results[0].formatted_address}`);
-                console.log(`latitude: ${body.results[0].geometry.location.lat}`);
-                console.log(`longitude: ${body.results[0].geometry.location.lng}`);
+                callback(undefined, {
+                    address : body.results[0].formatted_address,
+                    latitude : body.results[0].geometry.location.lat,
+                    longitude : body.results[0].geometry.location.lng
+                });
             }
         }
     });
