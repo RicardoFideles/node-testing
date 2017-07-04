@@ -6,9 +6,9 @@ var geocodeAddress = (address, callback) => {
 
     var url = `http://maps.googleapis.com/maps/api/geocode/json?address=${encondedAddress}`;
 
-    request({ 
-        url : url,
-        json : true,
+    request({
+        url: url,
+        json: true,
     }, (error, response, body) => {
 
         if (error) {
@@ -22,9 +22,9 @@ var geocodeAddress = (address, callback) => {
                 callback('Address not found!');
             } else {
                 callback(undefined, {
-                    address : body.results[0].formatted_address,
-                    latitude : body.results[0].geometry.location.lat,
-                    longitude : body.results[0].geometry.location.lng
+                    address: body.results[0].formatted_address,
+                    latitude: body.results[0].geometry.location.lat,
+                    longitude: body.results[0].geometry.location.lng
                 });
             }
         }
